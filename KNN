@@ -1,0 +1,45 @@
+import matplotlib.pyplot as plt
+import random
+import numpy as np
+from sklearn import neighbors
+
+#设置K=7
+Knn = neighbors.KNeighborsClassifier(n_neighbors=7)
+
+#初始数据输入作图
+a = range(0, 40, 1)
+b = range(60, 100, 1)
+x1 = random.sample(a, 10)
+y1 = random.sample(a, 10)
+x2 = random.sample(a, 15)
+y2 = random.sample(b, 15)
+x3 = random.sample(b, 20)
+y3 = random.sample(b, 20)
+plt.scatter(x1, y1, c='r', marker='D')
+plt.scatter(x2, y2, c='r', marker='o')
+plt.scatter(x3, y3, c='r', marker='^')
+
+#自行新增点
+x4, y4 = 40, 50
+self_input = [[x4, y4]]
+plt.scatter(x4, y4, c='b', marker='.')
+
+#输入数据进行分类
+data_1 = [[x1[n], y1[n]] for n in range(10)]
+data_2 = [[x2[n], y2[n]] for n in range(15)]
+data_3 = [[x3[n], y3[n]] for n in range(20)]
+data = data_1 + data_2 + data_3
+
+label_1 = [['菱形'] for n in range(10)]
+label_2 = [['圆形'] for n in range(15)]
+label_3 = [['三角'] for n in range(20)]
+label = label_1 + label_2 + label_3
+
+Knn.fit(data, label)
+
+print('新增点为', self_input)
+print('预测类型为', Knn.predict(self_input))
+
+plt.show()
+
+
